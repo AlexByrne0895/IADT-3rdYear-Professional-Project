@@ -1,0 +1,95 @@
+@if ($team->leagues->count() == 0)
+<p>There are no teams in this league</p>
+@else
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+    </tr>
+  </thead>
+
+  @if ($team->player->count() == 0)
+  <p>There are no players in this team</p>
+  @else
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Players</th>
+      </tr>
+    </thead>
+
+    @if ($team->manager->count() == 0)
+    <p>There are no manager asigned to this team</p>
+    @else
+    <table>
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Teams</th>
+        </tr>
+      </thead>
+
+      @if ($team->match->count() == 0)
+      <p>There are no teams playing in this match</p>
+      @else
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+  <tbody>
+    @foreach ($team->leagues as $leagues)
+    <tr>
+      <td>{{ $league->name }}</td>
+      <td>
+        <a class="btn btn-secondary" href="{{ route('admin.league.show', $league->id) }}">View Leagues</a>
+      </td>
+    </tr>
+    @endforeach
+
+    @foreach ($team->matches as $matches)
+    <tr>
+      <td>{{ $matches->date }}</td>
+      <td>{{ $matches->time }}</td>
+      <td>
+        <a class="btn btn-secondary" href="{{ route('admin.match.show', $match->id) }}">View Matches</a>
+      </td>
+    </tr>
+    @endforeach
+
+    @foreach ($team->players as $players)
+    <tr>
+      <td>{{ $player->name }}</td>
+      <td>{{ $player->position }}</td>
+      <td>{{ $player->date_of_birth }}</td>
+      <td>{{ $player->phone_number }}</td>
+      <td>{{ $player->address }}</td>
+      <td>{{ $player->emergency_name }}</td>
+      <td>{{ $player->emergency_number }}</td>[]
+      <td>
+        <a class="btn btn-default" href="{{ route('admin.players.show', $player->id) }}">View Players</a>
+      </td>
+    </tr>
+    @endforeach
+
+    @foreach ($team->managers as $managers)
+    <tr>
+      <td>{{ $manager->name }}</td>
+      <td>{{ $manager->phone_number }}</td>
+      <td>{{ $manager->address }}</td>
+        <a class="btn btn-primary" href="{{ route('admin.managers.show', $team->id) }}">View Manager</a>
+      </td>
+    </tr>
+    @endforeach
+
+    </tbody>
+</table>
+@endif
